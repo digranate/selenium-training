@@ -1,5 +1,6 @@
 import com.sun.jna.platform.win32.Sspi;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -54,7 +55,18 @@ public class LiteCartTest {
                 driver.findElement(By.cssSelector("#content h1"));
             }
         }
+    }
 
+    @Test
+    public void checkAllStickers() {
+        //driver.get("http://localhost:8080/litecart/admin");
+        driver.get("http://litecart.stqa.ru");
+        List<WebElement> webElements = driver.findElements
+                (By.xpath("//*[starts-with(@class, 'product column')]"
+                ));
+        for (WebElement webElement : webElements) {
+            Assert.assertTrue(webElement.findElements(By.xpath(".//div[starts-with(@class,'sticker')]")).size() == 1);
+        }
     }
 
 
