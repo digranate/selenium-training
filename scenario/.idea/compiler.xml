@@ -10,6 +10,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
+      <module name="gradletest_main" target="1.8" />
+      <module name="gradletest_test" target="1.8" />
       <module name="scenario" target="1.8" />
     </bytecodeTargetLevel>
   </component>
