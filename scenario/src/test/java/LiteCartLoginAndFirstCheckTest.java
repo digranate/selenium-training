@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by dinara.trifanova on 2/21/2017.
  */
-public class LiteCartTest {
+public class LiteCartLoginAndFirstCheckTest {
     private WebDriver driver;
     private WebDriverWait webDriverWait;
 
@@ -68,6 +68,8 @@ public class LiteCartTest {
             Assert.assertTrue(webElement.findElements(By.xpath(".//div[starts-with(@class,'sticker')]")).size() == 1);
         }
     }
+
+
 
 
     @After
