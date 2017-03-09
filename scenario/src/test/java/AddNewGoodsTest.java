@@ -1,4 +1,5 @@
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -38,8 +39,8 @@ public class AddNewGoodsTest {
         driver.findElements(By.cssSelector("#box-apps-menu > li")).get(1).click();
         driver.findElements(By.cssSelector("#content > div > a")).get(1).click();
         driver.findElement(By.xpath("//*[@name='status'][@value='1']")).click();
-
-        driver.findElement(By.name("name[en]")).sendKeys("ABC duck");
+        String name = "ABC duck " + new Random().nextInt(1000000);
+        driver.findElement(By.name("name[en]")).sendKeys(name);
         driver.findElement(By.name("code")).sendKeys("ABC");
 
         driver.findElements(By.name("categories[]")).get(1).click();
@@ -51,7 +52,7 @@ public class AddNewGoodsTest {
         driver.findElement(By.name("date_valid_from")).sendKeys("01.01.2017");
         driver.findElement(By.name("date_valid_to")).sendKeys("01.01.2999");
 
-        File file = new File("src"+File.separator+"test"+File.separator+ "resources"+File.separator+"DuckABC.jpg");
+        File file = new File("src" + File.separator + "test" + File.separator + "resources" + File.separator + "DuckABC.jpg");
         driver.findElement(By.name("new_images[]")).sendKeys(file.getAbsolutePath());
 
 
@@ -60,10 +61,10 @@ public class AddNewGoodsTest {
         Select select = new Select(driver.findElement(By.name("manufacturer_id")));
         select.selectByIndex(1);
         driver.findElement(By.name("keywords")).sendKeys("ABC");
-        driver.findElement(By.name("short_description[en]")).sendKeys("ABC duck");
+        driver.findElement(By.name("short_description[en]")).sendKeys(name);
         driver.findElement(By.className("trumbowyg-editor")).sendKeys("ABC duck is great");
-        driver.findElement(By.name("head_title[en]")).sendKeys("ABC duck");
-        driver.findElement(By.name("meta_description[en]")).sendKeys("ABC duck");
+        driver.findElement(By.name("head_title[en]")).sendKeys(name);
+        driver.findElement(By.name("meta_description[en]")).sendKeys(name);
 
         driver.findElements(By.xpath("//*[@class='index']/li")).get(3).click();
         driver.findElement(By.name("purchase_price")).clear();
@@ -77,7 +78,11 @@ public class AddNewGoodsTest {
         driver.findElement(By.name("gross_prices[EUR]")).sendKeys("9");
 
         driver.findElement(By.name("save")).click();
-
+        for (WebElement webElement : driver.findElements(By.xpath("//*[@class='dataTable']//*[@class='row']//a"))) {
+            if (webElement.getAttribute("textContent").equals(name))
+                return;
+        }
+        throw new AssertionError("THe product is not found");
     }
 
 
