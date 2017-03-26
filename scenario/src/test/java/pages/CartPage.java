@@ -19,7 +19,7 @@ public class CartPage extends Page {
         driver.get("http://litecart.stqa.ru/index.php/en/checkout");
     }
 
-    public boolean isEmpty() {
+    public boolean isShortcutsEmpty() {
         return (driver.findElements(By.xpath("//ul[@class='shortcuts']/li")).size() == 0);
     }
 

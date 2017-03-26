@@ -48,7 +48,7 @@ public class Application {
         }
 
         cartPage.open();
-        while (!cartPage.isEmpty()) {
+        while (!cartPage.isShortcutsEmpty()) {
             int sizeBefore = cartPage.countProductsInCart();
             WebElement webElement = cartPage.getAndClickOnFirstShortcut();
             cartPage.removeProduct();
