@@ -7,6 +7,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -14,6 +18,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 
 /**
  * Created by Sammy on 08.03.2017.
@@ -24,7 +29,12 @@ public class BrowserLogTest {
 
     @Before
     public void beforeActions() {
-        driver = new ChromeDriver();
+        LoggingPreferences logPrefs = new LoggingPreferences();
+        logPrefs.enable(LogType.BROWSER, Level.ALL);
+        DesiredCapabilities cap = new DesiredCapabilities();
+        cap.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
+        //WebDriver driver = new ChromeDriver(cap);
+        driver = new ChromeDriver(cap);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         webDriverWait = new WebDriverWait(driver, 15);
     }
